@@ -38,7 +38,7 @@ void draw(){
       
       println(serialString);
       
-      //if (sensorDataString.length == 2) { // make sure there are enough data 
+      if (sensorDataString.length == 2) { // make sure there are enough data 
         
         //check pushbutton - toggle between 2 color
         if(sensorDataString[0].equals("1")){
@@ -50,9 +50,9 @@ void draw(){
         
         //check pot - move a circle horizontally
         analogSensorData = int(sensorDataString[1]);
-        positionX = map(analogSensorData, 0, 1023, 100, width-100);
+        positionX = map(analogSensorData, 0, 250, 100, width-100);
         println("pot reading = " + sensorDataString[1]); 
-      //}
+      }
     }
   }
   
