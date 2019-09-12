@@ -24,7 +24,7 @@ boolean timeBool=false;
 
 void setup(){
 
-size (800, 600);
+size (1600, 1000);
 printArray(Serial.list());
  
 myPort = new Serial(this, Serial.list()[9],9600);
@@ -97,7 +97,7 @@ background(0);
     if(udead!= timeBool && timeBool==false){
       count=timer;
     }
-    if(timer-count>=3000 && analogSensorData > 100){
+    if(timer-count>=3000 && analogSensorData > 30){
     
       wildAnimal.randomLocation();
       udead=false;
@@ -110,7 +110,7 @@ background(0);
   }
   
   
-  println(timer-count);
+  //println(timer-count);
   ellipse(width/2, height/2,  ellipseScale, ellipseScale);
   imageMode(CENTER);
   image( gorillaImg, width/2, height/2,ellipseScale,ellipseScale );
@@ -122,12 +122,12 @@ background(0);
 
 void gorillaSound(){
 
-   float amplitude = map(analogSensorData, 100, 250, 0.2,1.0); 
+   float amplitude = map(analogSensorData, 30, 220, 0.2,1.0); 
     //println(soundPlay);
     
     soundfile[soundPlay].amp(amplitude);
     
-    if(analogSensorData > 100 ){
+    if(analogSensorData > 30 ){
       //prePoundChest= false;
       poundChest =true; 
       
@@ -145,7 +145,7 @@ void gorillaSound(){
       
       //prePoundChest = poundChest;
 
-    }else if(analogSensorData < 100) {
+    }else if(analogSensorData < 30) {
       
       poundChest=false;
     
