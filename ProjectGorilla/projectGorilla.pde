@@ -22,9 +22,15 @@ int timer;
 boolean timeBool=false;
 
 
+void settings() {
+  size(1000, 800);
+}
+
+
 void setup(){
 
-size (1600, 1000);
+//size(1400, 1000);
+
 printArray(Serial.list());
  
 myPort = new Serial(this, Serial.list()[9],9600);
