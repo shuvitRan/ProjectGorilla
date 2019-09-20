@@ -17,7 +17,7 @@ boolean startKeyboard2 = false;
 void setup() {
   
   printArray(Serial.list());
-  myPort = new Serial(this, Serial.list()[6], 9600);
+  myPort = new Serial(this, Serial.list()[5], 9600);
   myPort.bufferUntil ('\n');
   try {
     robot = new Robot(); 
