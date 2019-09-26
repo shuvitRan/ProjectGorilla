@@ -93,7 +93,7 @@ MPU6050 mpu;
 // (in degrees) calculated from the quaternions coming from the FIFO.
 // Note that Euler angles suffer from gimbal lock (for more info, see
 // http://en.wikipedia.org/wiki/Gimbal_lock)
-//#define OUTPUT_READABLE_EULER
+#define OUTPUT_READABLE_EULER
 
 // uncomment "OUTPUT_READABLE_YAWPITCHROLL" if you want to see the yaw/
 // pitch/roll angles (in degrees) calculated from the quaternions coming
@@ -117,7 +117,7 @@ MPU6050 mpu;
 
 // uncomment "OUTPUT_TEAPOT" if you want output that matches the
 // format used for the InvenSense teapot demo
-#define OUTPUT_TEAPOT
+//#define OUTPUT_TEAPOT
 
 
 
@@ -173,6 +173,7 @@ void setup() {
 
     // initialize serial communication
     // (115200 chosen because it is required for Teapot Demo output, but it's
+   
     // really up to you depending on your project)
     Serial.begin(115200);
     while (!Serial); // wait for Leonardo enumeration, others continue immediately
@@ -199,7 +200,7 @@ void setup() {
     while (Serial.available() && Serial.read()); // empty buffer again
 
     // load and configure the DMP
-    Serial.println(F("Initializing DMP..."));
+//    Serial.println(F("Initializing DMP..."));
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
@@ -252,6 +253,8 @@ void setup() {
 // ================================================================
 
 void loop() {
+//  delay(20);
+  
     // if programming failed, don't try to do anything
     if (!dmpReady) return;
 
@@ -313,16 +316,30 @@ void loop() {
             Serial.println(q.z);
         #endif
 
-        #ifdef OUTPUT_READABLE_EULER
+//        #ifdef OUTPUT_READABLE_EULER
+//            // display Euler angles in degrees
+//            mpu.dmpGetQuaternion(&q, fifoBuffer);
+//            mpu.dmpGetEuler(euler, &q);
+//            Serial.print("euler\t");
+//            Serial.print(euler[0] * 180/M_PI);
+//            Serial.print("\t");
+//            Serial.print(euler[1] * 180/M_PI);
+//            Serial.print("\t");
+//            Serial.println(euler[2] * 180/M_PI);
+//        #endif
+
+
+         #ifdef OUTPUT_READABLE_EULER
             // display Euler angles in degrees
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetEuler(euler, &q);
-            Serial.print("euler\t");
+//            Serial.print("euler\t");
             Serial.print(euler[0] * 180/M_PI);
-            Serial.print("\t");
+            Serial.print(",");
             Serial.print(euler[1] * 180/M_PI);
-            Serial.print("\t");
+            Serial.print(",");
             Serial.println(euler[2] * 180/M_PI);
+//            delay(50);
         #endif
 
         #ifdef OUTPUT_READABLE_YAWPITCHROLL
