@@ -9,11 +9,11 @@ const int buttonPin = 4;     // the number of the pushbutton pin
 int buttonState = 0;   
 
 
-//For ultrasonic sensor
-const int trigPin = 6;
-const int echoPin = 5;
-long duration;
-int distance;
+//For inraredPin sensor
+
+const int infraredPin = 5;
+int infrVal;
+
 
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project
@@ -92,7 +92,7 @@ MPU6050 mpu;
 
 
 
-#define INTERRUPT_PIN 7  // use pin 2 on Arduino Uno & most boards
+#define INTERRUPT_PIN 7  // use pin 2 on Arduino Uno & most boards  //pin 7on leonardo
 #define LED_PIN 13 // (Arduino is 13, Teensy is 11, Teensy++ is 6)
 bool blinkState = false;
 
@@ -136,9 +136,8 @@ void dmpDataReady() {
 void setup() {
 
 
-//Ultrasonic sensor
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+//Infrared sensor
+ pinMode(infraredPin, INPUT);
 
 
 //Trigger
@@ -242,25 +241,14 @@ void loop() {
 
    //button------------
             // read the state of the pushbutton value:
-            buttonState = digitalRead(buttonPin);
-          
-          //trigger---------------
-          // Clears the trigPin
-          digitalWrite(trigPin, LOW);
-          delayMicroseconds(2);
-          // Sets the trigPin on HIGH state for 10 micro seconds
-          digitalWrite(trigPin, HIGH);
-          delayMicroseconds(10);
-          digitalWrite(trigPin, LOW);
-          // Reads the echoPin, returns the sound wave travel time in microseconds
-          duration = pulseIn(echoPin, HIGH);
-          // Calculating the distance
-          distance= duration*0.034/2;
+           buttonState = digitalRead(buttonPin);
+           infrVal = digitalRead(infraredPin); 
+      
 
 
            Serial.print(buttonState);
            Serial.print(",");
-           Serial.print(distance);
+           Serial.print(infrVal);
            Serial.print(",");
   
 //  delay(20);
