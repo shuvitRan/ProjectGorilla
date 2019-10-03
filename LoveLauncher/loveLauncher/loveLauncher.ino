@@ -3,7 +3,7 @@
 //Trigger
 
 const int buttonPin = 4;     // the number of the pushbutton pin
-const int ledPin =  13;      // the number of the LED pin
+//const int ledPin =  13;      // the number of the LED pin
 
 // variables will change:
 int buttonState = 0;   
@@ -143,7 +143,7 @@ void setup() {
 
 //Trigger
 
-  pinMode(ledPin, OUTPUT);
+//  pinMode(ledPin, OUTPUT);
   pinMode(buttonPin, INPUT);
 
 
@@ -239,40 +239,29 @@ void setup() {
 // ================================================================
 
 void loop() {
-//button------------
-  // read the state of the pushbutton value:
-  buttonState = digitalRead(buttonPin);
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-//  if (buttonState == HIGH) {
-//    // turn LED on:
-//    digitalWrite(ledPin, HIGH);
-//    
-//  } else {
-//    // turn LED off:
-//    digitalWrite(ledPin, LOW);
-//    
-//  }
-
-//trigger---------------
-// Clears the trigPin
-digitalWrite(trigPin, LOW);
-delayMicroseconds(2);
-// Sets the trigPin on HIGH state for 10 micro seconds
-digitalWrite(trigPin, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigPin, LOW);
-// Reads the echoPin, returns the sound wave travel time in microseconds
-duration = pulseIn(echoPin, HIGH);
-// Calculating the distance
-distance= duration*0.034/2;
-
- Serial.print(buttonState);
-            Serial.print(",");
-            Serial.print(distance);
-            Serial.print(",");
+   //button------------
+            // read the state of the pushbutton value:
+            buttonState = digitalRead(buttonPin);
+          
+          //trigger---------------
+          // Clears the trigPin
+          digitalWrite(trigPin, LOW);
+          delayMicroseconds(2);
+          // Sets the trigPin on HIGH state for 10 micro seconds
+          digitalWrite(trigPin, HIGH);
+          delayMicroseconds(10);
+          digitalWrite(trigPin, LOW);
+          // Reads the echoPin, returns the sound wave travel time in microseconds
+          duration = pulseIn(echoPin, HIGH);
+          // Calculating the distance
+          distance= duration*0.034/2;
 
 
+           Serial.print(buttonState);
+           Serial.print(",");
+           Serial.print(distance);
+           Serial.print(",");
   
 //  delay(20);
   
@@ -295,6 +284,11 @@ distance= duration*0.034/2;
         // .
         // .
         // .
+
+      
+          
+          
+        
     }
 
     // reset interrupt flag and get INT_STATUS byte
@@ -351,9 +345,10 @@ distance= duration*0.034/2;
 
 
          #ifdef OUTPUT_READABLE_EULER
-            
+          
            
-         
+             
+            
             // display Euler angles in degrees
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetEuler(euler, &q);
@@ -363,6 +358,8 @@ distance= duration*0.034/2;
             Serial.print(euler[1] * 180/M_PI);
             Serial.print(",");
             Serial.println(euler[2] * 180/M_PI);
+
+             
 //            delay(50);
         #endif
 
