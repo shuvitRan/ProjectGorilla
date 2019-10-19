@@ -8,11 +8,14 @@ const int buttonPin = 4;     // the number of the pushbutton pin
 // variables will change:
 int buttonState = 0;   
 
+//Photo cell Sensor
+const int photoCell = A0;
+int pcVal;
+
 
 //For inraredPin sensor
-
-const int infraredPin = 5;
-int infrVal;
+//const int infraredPin = 5;
+//int infrVal;
 
 
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
@@ -35,24 +38,6 @@ int infrVal;
 MPU6050 mpu;
 //MPU6050 mpu(0x69); // <-- use for AD0 high
 
-/* =========================================================================
-   NOTE: In addition to connection 3.3v, GND, SDA, and SCL, this sketch
-   depends on the MPU-6050's INT pin being connected to the Arduino's
-   external interrupt #0 pin. On the Arduino Uno and Mega 2560, this is
-   digital I/O pin 2.
- * ========================================================================= */
-
-/* =========================================================================
-   NOTE: Arduino v1.0.1 with the Leonardo board generates a compile error
-   when using Serial.write(buf, len). The Teapot output uses this method.
-   The solution requires a modification to the Arduino USBAPI.h file, which
-   is fortunately simple, but annoying. This will be fixed in the next IDE
-   release. For more info, see these links:
-
-   http://arduino.cc/forum/index.php/topic,109987.0.html
-   http://code.google.com/p/arduino/issues/detail?id=958
- * ========================================================================= */
-
 
 
 // uncomment "OUTPUT_READABLE_QUATERNION" if you want to see the actual
@@ -64,7 +49,7 @@ MPU6050 mpu;
 // (in degrees) calculated from the quaternions coming from the FIFO.
 // Note that Euler angles suffer from gimbal lock (for more info, see
 // http://en.wikipedia.org/wiki/Gimbal_lock)
-#define OUTPUT_READABLE_EULER
+//#define OUTPUT_READABLE_EULER
 
 // uncomment "OUTPUT_READABLE_YAWPITCHROLL" if you want to see the yaw/
 // pitch/roll angles (in degrees) calculated from the quaternions coming
@@ -78,7 +63,7 @@ MPU6050 mpu;
 // not compensated for orientation, so +X is always +X according to the
 // sensor, just without the effects of gravity. If you want acceleration
 // compensated for orientation, us OUTPUT_READABLE_WORLDACCEL instead.
-//#define OUTPUT_READABLE_REALACCEL
+#define OUTPUT_READABLE_REALACCEL
 
 // uncomment "OUTPUT_READABLE_WORLDACCEL" if you want to see acceleration
 // components with gravity removed and adjusted for the world frame of
@@ -135,9 +120,13 @@ void dmpDataReady() {
 
 void setup() {
 
+//uncomment for photo Cell
+pinMode(photoCell, INPUT);
 
-//Infrared sensor
- pinMode(infraredPin, INPUT);
+
+
+// uncomment for Infrared sensor 
+// pinMode(infraredPin, INPUT);
 
 
 //Trigger
@@ -175,14 +164,14 @@ void setup() {
     pinMode(INTERRUPT_PIN, INPUT);
 
     // verify connection
-    Serial.println(F("Testing device connections..."));
-    Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
+//    Serial.println(F("Testing device connections..."));
+//    Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
 
     // wait for ready
-    Serial.println(F("\nSend any character to begin DMP programming and demo: "));
-    while (Serial.available() && Serial.read()); // empty buffer
-    while (!Serial.available());                 // wait for data
-    while (Serial.available() && Serial.read()); // empty buffer again
+//    Serial.println(F("\nSend any character to begin DMP programming and demo: "));
+//    while (Serial.available() && Serial.read()); // empty buffer
+//    while (!Serial.available());                 // wait for data
+//    while (Serial.available() && Serial.read()); // empty buffer again
 
     // load and configure the DMP
 //    Serial.println(F("Initializing DMP..."));
@@ -242,13 +231,18 @@ void loop() {
    //button------------
             // read the state of the pushbutton value:
            buttonState = digitalRead(buttonPin);
-           infrVal = digitalRead(infraredPin); 
-      
+
+  // read the infrared Pin-----------------
+//         infrVal = digitalRead(infraredPin); 
+  
+  //read photo cell ---------------
+          pcVal = analogRead(photoCell);    
 
 
            Serial.print(buttonState);
            Serial.print(",");
-           Serial.print(infrVal);
+//           Serial.print(infrVal);
+           Serial.print(pcVal);
            Serial.print(",");
   
 //  delay(20);

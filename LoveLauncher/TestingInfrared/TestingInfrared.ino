@@ -1,6 +1,8 @@
 int Led = 13 ;// define LED Interface
 int buttonpin = 8; // define the obstacle avoidance sensor interface
 int val ;// define numeric variables val
+int val2;
+int sharp =A1;
 void setup ()
 {
   pinMode (Led, OUTPUT) ;// define LED as output interface
@@ -18,5 +20,11 @@ void loop ()
   {
     digitalWrite (Led, LOW);
   }
-  Serial.println(val);
+//  Serial.println(val);
+
+  val2 = analogRead(sharp);
+  Serial.println(val2);
+
+
+  
 }
